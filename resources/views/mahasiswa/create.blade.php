@@ -12,7 +12,7 @@
         <div class="card-body">
             @if ($errors->any())
         <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <strong>Whoops!</strong> Menambahkan inputan Error.<br><br>
         <ul>
             @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
@@ -68,7 +68,7 @@
                 <input type="Tanggal_Lahir" name="Tanggal_Lahir" class="form-control" id="Tanggal_Lahir" ariadescribedby="Tanggal_Lahir" >
             </div>
  
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submit">Submit</button>
  
         </form>
  

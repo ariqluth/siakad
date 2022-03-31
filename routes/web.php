@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +24,9 @@ Route::get('/', function () {
 
 //buat mahasiswa route 
 Route::resource('mahasiswa', MahasiswaController::class);
+
+// pagination 
+
+
+
+

@@ -16,10 +16,24 @@ class MahasiswaController extends Controller
     public function index()
     {
                 //fungsi eloquent menampilkan data menggunakan pagination
-                $mahasiswa = Mahasiswa::all(); // Mengambil semua isi tabel
-                $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->paginate(3);
-                    return view('mahasiswa.index', ['mahasiswa' => $mahasiswa,'paginate'=>$paginate]);
-    }
+                if (request('search')){
+                    $mahasiswas = Mahasiswa::where('nim', 'like', '%'.request('search').'%')
+                                            ->orwhere('nama', 'like', '%'.request('search').'%')
+                                            ->orwhere('kelas', 'like', '%'.request('search').'%')
+                                            ->orwhere('jurusan', 'like', '%'.request('search').'%')
+                                            ->orwhere('email', 'like', '%'.request('search').'%')
+                                            ->orwhere('alamat', 'like', '%'.request('search').'%')
+                                            ->orwhere('tanggal_lahir', 'like', '%'.request('search').'%')
+                                            ->paginate(5);
+                    return view('mahasiswa.index', ['paginate'=>$mahasiswas]);
+                } else {
+                    //fungsi eloquent menampilkan data menggunakan pagination
+                    $mahasiswa = Mahasiswa::all(); //mengambil semua isi tabel
+                    $mahasiswas= Mahasiswa::orderBy('id_mahasiswa','asc')->paginate(5);
+                    return view('mahasiswa.index',['mahasiswa'=>$mahasiswa,'paginate'=>$mahasiswas]);
+                }
+            }
+    
     public function create()
     {
     
@@ -108,9 +122,8 @@ class MahasiswaController extends Controller
         //fungsi eloquent untuk menghapus data
 
         Mahasiswa::where('nim', $nim)->delete();
-        return redirect()->route('mahasiswa.index') 
-       -> with('success', 'Mahasiswa Berhasil Dihapus');
+return redirect()->route('mahasiswa.index')
+-> with('success', 'Mahasiswa Berhasil Dihapus');
  
     }
-
 }
