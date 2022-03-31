@@ -25,8 +25,8 @@ Route::get('/', function () {
 //buat mahasiswa route 
 Route::resource('mahasiswa', MahasiswaController::class);
 
-// pagination 
-
+// konfirmasi
+Route::delete('/{nim}', [MahasiswaController::class, 'delete'])->name('mahasiswa.delete');
 
 
 

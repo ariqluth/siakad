@@ -68,50 +68,46 @@
         <td>{{ $mhs ->alamat }}</td>
         <td>{{ $mhs ->tanggal_lahir }}</td>
     <td>
-        <form action="{{ route('mahasiswa.destroy',['mahasiswa'=>$mhs->nim]) }}" method="POST">
+      <form action="{{ route('mahasiswa.destroy', $mhs->nim) }}" method="POST">
+      
 
              <a class="btn btn-info" href="{{ route('mahasiswa.show',$mhs->nim) }}">Show</a>
              <a class="btn btn-primary" href="{{ route('mahasiswa.edit',$mhs->nim) }}">Edit</a>
 
-              {{-- @method('DELETE') --}}
+             
              @csrf
-            
-             {{-- <a href="#" type="submit" class="btn btn-warning button" data-id="{{$mhs->nim}}">Delete</a> --}}
-             <button type="submit" class="btn btn-danger button" id="{{$mhs->nim}}">Delete</button>
-
-
+              @method('DELETE')
+{{--             
+             <a href="#" type="submit" class="btn btn-warning button" data-id="{{$mhs->nim}}">Delete</a>
+              --}}
+              <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
 </form>
     </td>
         </tr>
     @endforeach
  </table>
- {{ $paginate->links()}}
+ {{ $paginate->links('pagination::bootstrap-4')}}
 
  {{-- konfirmasi delete  --}}
 
         <script type="text/javascript">
-      $('.button').click(function (){
-    var nim = $(this).attr('id');
-    swal({
-            title: "Are you sure!",
-            text: "kamu yakin akan menghapus data mahasiswa dengan id"+nim+" " ,
-            type: "warning",
-          buttons: true,
-          danger: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-              window.location = "/mahasiswa";
-            swal("Data mahasiswa berhasil di hapus", {
-              icon: "success",
-            });
-           
-          } else {
-            swal("Data mahasiswa dengan tidak dihapus");
-          }
-        });
-       
-});
+       $('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+         
+          event.preventDefault();
+          swal({
+              title: `Are you sure you want to delete this record?`,
+              text: "If you delete this, it will be gone forever.",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            }
+          });
+      });
         </script>
 </body>
 </html>

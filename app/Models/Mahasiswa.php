@@ -10,6 +10,7 @@ class Mahasiswa extends Model //Definisi Model
 {
     protected $table='mahasiswa'; // Eloquent akan membuat model mahasiswa menyimpan record ditabel mahasiswa
     protected $primaryKey = 'id_mahasiswa'; // Memanggil isi DB Dengan primarykey
+    
  /**
  * The attributes that are mass assignable.
  *

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
+
+
 class MahasiswaController extends Controller
 {
     /**
@@ -120,6 +122,7 @@ class MahasiswaController extends Controller
     {
 
         //fungsi eloquent untuk menghapus data
+ 
 
         Mahasiswa::where('nim', $nim)->delete();
 return redirect()->route('mahasiswa.index')
