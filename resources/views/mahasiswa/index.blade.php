@@ -50,10 +50,7 @@
         <th>Nama</th>
         <th>Kelas</th>
         <th>Jurusan</th>
-        <th>Jenis Kelamin</th>
-        <th>Email</th>
-        <th>Alamat</th>
-        <th>Tanggal Lahir</th>
+       
         <th width="280px">Action</th>
     </tr>
     @foreach ($paginate as $mhs)
@@ -61,12 +58,9 @@
     <tr>
         <td>{{ $mhs ->nim }}</td>
         <td>{{ $mhs ->nama }}</td>
-        <td>{{ $mhs ->kelas }}</td>
+        <td>{{ $mhs ->kelas['nama_kelas']}}</td>
         <td>{{ $mhs ->jurusan }}</td>
-        <td>{{ $mhs ->jenis_kelamin }}</td>
-        <td>{{ $mhs ->email }}</td>
-        <td>{{ $mhs ->alamat }}</td>
-        <td>{{ $mhs ->tanggal_lahir }}</td>
+       
     <td>
       <form action="{{ route('mahasiswa.destroy', $mhs->nim) }}" method="POST">
       

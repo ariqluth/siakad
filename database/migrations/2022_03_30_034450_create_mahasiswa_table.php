@@ -22,7 +22,7 @@ class CreateMahasiswaTable extends Migration
             $table->string('jenis_kelamin', 35);
             $table->string('email', 25);
             $table->string('alamat', 35);
-            $table->string('tanggal_lahir', 35);
+            $table->date('tanggal_lahir', 35);
             $table->timestamps();
         });
     }

@@ -39,7 +39,11 @@
  
             <div class="form-group">
                 <label for="Kelas">Kelas</label>
-                <input type="Kelas" name="Kelas" class="form-control" id="Kelas" ariadescribedby="password" >
+                <select class="custom-select" id="Kelas" name="Kelas">
+                    @foreach($kelas as $kls)
+                    <option value="{{ $kls->id }}">{{ $kls->nama_kelas }}</option>
+                    @endforeach
+                </select>
             </div>
 
  
@@ -47,26 +51,26 @@
                 <label for="Jurusan">Jurusan</label>
                 <input type="Jurusan" name="Jurusan" class="form-control" id="Jurusan" ariadescribedby="Jurusan" >
             </div>
-
             <div class="form-group">
                 <label for="Jenis_Kelamin">Jenis Kelamin</label>
-                <input type="Jenis_Kelamin" name="Jenis_Kelamin" class="form-control" id="Jenis_Kelamin" ariadescribedby="Jenis_Kelamin" >
+                <select class="custom-select" id="Jenis_Kelamin" name="Jenis_Kelamin">
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
             </div>
-
-            <div class="form-group">
-                <label for="Email">Email</label>
-                <input type="Email" name="Email" class="form-control" id="Email" ariadescribedby="Email" >
-            </div>
-
-            <div class="form-group">
-                <label for="Alamat">Alamat</label>
-                <input type="Alamat" name="Alamat" class="form-control" id="Alamat" ariadescribedby="Alamat" >
-            </div>
-
             <div class="form-group">
                 <label for="Tanggal_Lahir">Tanggal Lahir</label>
-                <input type="Tanggal_Lahir" name="Tanggal_Lahir" class="form-control" id="Tanggal_Lahir" ariadescribedby="Tanggal_Lahir" >
+                <input type="date" name="Tanggal_Lahir" class="form-control" id="Tanggal_Lahir" ariadescribedby="Tanggal_Lahir">
             </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="email" name="Email" class="form-control" id="Email" ariadescribedby="Email">
+            </div>
+            <div class="form-group">
+                <label for="Alamat">Alamat</label>
+                <input type="textarea" name="Alamat" class="form-control" id="Alamat" ariadescribedby="Alamat">
+            </div>
+           
  
             <button type="submit" class="btn btn-primary" id="submit">Submit</button>
  
