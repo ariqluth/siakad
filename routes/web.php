@@ -27,6 +27,8 @@ Route::resource('mahasiswa', MahasiswaController::class);
 
 // konfirmasi
 Route::delete('/{nim}', [MahasiswaController::class, 'delete'])->name('mahasiswa.delete');
+Route::get('/nialiraport/{id}', [MahasiswaController::class, 'khs'])->name('mahasiswa.nilairaport');
+
 
 
 

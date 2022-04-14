@@ -31,4 +31,9 @@ class Mahasiswa extends Model //Definisi Model
   {
      return $this->belongsTo('App\Models\Kelas' , 'kelas_id');
  }
+
+    public function mahasiswa_matakuliah()
+    {
+        return $this->belongsToMany('App\Models\Mahasiswa_Matakuliah','id_mahasiswa');
+    }
 };
