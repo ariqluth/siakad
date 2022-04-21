@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa_Matakuliah;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -44,25 +45,29 @@ class MahasiswaController extends Controller
         // tester create data 
         // return $request;
 
-         //melakukan validasi data
+    if ($request->file('image')) {
+        $image_name = $request->file('image')->store('images', 'public');
+    }
+
+ //melakukan validasi data
    
-         $request->validate([
+          $request->validate([
             'Nim' => 'required',
             'Nama' => 'required', 
             'Kelas' => 'required',
             'Jurusan' => 'required',
-            'Jurusan' => 'required',
+            'Featured_Image' => 'image|file|max:1024',
             'Jenis_Kelamin' => 'required',
             'Email' => 'required',
             'Alamat' => 'required',
             'Tanggal_Lahir' => 'required',
            
     ]);
-
     $mahasiswa = new Mahasiswa;
     $mahasiswa->nim = $request->get('Nim');
     $mahasiswa->nama = $request->get('Nama');
     $mahasiswa->jurusan = $request->get('Jurusan');
+    $mahasiswa->featured_image = $image_name;
     $mahasiswa->jenis_kelamin = $request->get('Jenis_Kelamin');
     $mahasiswa->email = $request->get('Email');
     $mahasiswa->alamat = $request->get('Alamat');
@@ -70,8 +75,11 @@ class MahasiswaController extends Controller
     $mahasiswa->kelas_id = $request->get('Kelas');
     $mahasiswa->save();
 
+        
 
-    
+    // $validateData['kelas_id'] = $request->get('Kelas');
+
+    // Mahasiswa::create($validateData);
     
 
     // fugsi eloquent untuk menambhakan ddata dengan relasi belongsTo
@@ -97,7 +105,7 @@ class MahasiswaController extends Controller
     return view('mahasiswa.detail', ['Mahasiswa' => $mahasiswa]);
     }
  
-    public function edit($nim)
+    public function edit(Request $request, $nim)
     {
 
         //menampilkan detail data dengan menemukan berdasarkan Nim Mahasiswa untuk diedit
@@ -113,25 +121,35 @@ class MahasiswaController extends Controller
  
      {
 
-        //melakukan validasi data
+         //melakukan validasi data
 
-        $request->validate([
-
+         $request->validate([
             'Nim' => 'required',
             'Nama' => 'required',
             'Kelas' => 'required',
             'Jurusan' => 'required',
+            'Featured_Image' => 'image|file|max:1024',
             'Jenis_Kelamin' => 'required',
             'Email' => 'required',
             'Alamat' => 'required',
             'Tanggal_Lahir' => 'required',
         ]);
+
         //fungsi eloquent untuk mengupdate data inputan kita
  
-        $mahasiswa=Mahasiswa::with('kelas')->where('nim', $nim)->first();
+        $mahasiswa = Mahasiswa::with('kelas')->where('nim', $nim)->first();
+        // validasi foto jika foto lama akan dihapus / diganti
+        if ($mahasiswa->featured_image && file_exists(storage_path('app/public/' . $mahasiswa->featured_image))) {
+            Storage::delete('public/' . $mahasiswa->featured_image);  
+
+            $image_name = $request->file('image')->store('images', 'public');
+        }
+      
+     
         $mahasiswa->nim = $request->get('Nim');
         $mahasiswa->nama = $request->get('Nama');
         $mahasiswa->jurusan = $request->get('Jurusan');
+        $mahasiswa->featured_image = $image_name;
         $mahasiswa->jenis_kelamin = $request->get('Jenis_Kelamin');
         $mahasiswa->email = $request->get('Email');
         $mahasiswa->alamat = $request->get('Alamat');
@@ -152,11 +170,16 @@ class MahasiswaController extends Controller
     }
     public function destroy( $nim)
     {
+          //fungsi eloquent untuk menghapus data
+       $mahasiswa = Mahasiswa::findOrFail($nim);
 
-        //fungsi eloquent untuk menghapus data
+        if( Storage::delete('public/' . $mahasiswa->featured_image)) {
+          $mahasiswa->delete();  
+    }
+      
  
 
-        Mahasiswa::where('nim', $nim)->delete();
+       
 return redirect()->route('mahasiswa.index')
 -> with('success', 'Mahasiswa Berhasil Dihapus');
  

@@ -50,6 +50,7 @@
         <th>Nama</th>
         <th>Kelas</th>
         <th>Jurusan</th>
+        <th>Foto</th>
        
         <th width="280px">Action</th>
     </tr>
@@ -60,6 +61,7 @@
         <td>{{ $mhs ->nama }}</td>
         <td>{{ $mhs ->kelas['nama_kelas']}}</td>
         <td>{{ $mhs ->jurusan }}</td>
+        <td><img width="150px" src="{{asset('storage/'.$mhs->featured_image)}}"></td>
        
     <td>
       <form action="{{ route('mahasiswa.destroy', $mhs->nim) }}" method="POST">

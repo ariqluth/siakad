@@ -22,7 +22,7 @@
          @endif
 
  
-         <form method="post" action="{{ route('mahasiswa.store') }}" id="myForm">
+         <form method="post" action="{{ route('mahasiswa.store') }}" id="myForm" enctype="multipart/form-data">
  
             @csrf
  
@@ -51,6 +51,13 @@
                 <label for="Jurusan">Jurusan</label>
                 <input type="Jurusan" name="Jurusan" class="form-control" id="Jurusan" ariadescribedby="Jurusan" >
             </div>
+
+            <div class="form-group">
+                <label for="image">Foto</label>
+                <input type="file" name="image" class="form-control" id="image"  >
+            </div>
+
+
             <div class="form-group">
                 <label for="Jenis_Kelamin">Jenis Kelamin</label>
                 <select class="custom-select" id="Jenis_Kelamin" name="Jenis_Kelamin">

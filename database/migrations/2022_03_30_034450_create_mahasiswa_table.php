@@ -19,6 +19,7 @@ class CreateMahasiswaTable extends Migration
             $table->string('nama', 25)->index();
             $table->string('kelas', 5);
             $table->string('jurusan', 35);
+            $table->string('featured_image');
             $table->string('jenis_kelamin', 35);
             $table->string('email', 25);
             $table->string('alamat', 35);

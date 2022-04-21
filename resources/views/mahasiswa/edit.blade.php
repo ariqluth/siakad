@@ -20,7 +20,7 @@
                     </ul>
                 </div>
                 @endif
-                <form method="post" action="{{ route('mahasiswa.update', $mahasiswa->nim) }}" id="myForm">
+                <form method="post" action="{{ route('mahasiswa.update', $mahasiswa->nim) }}" id="myForm" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -31,6 +31,30 @@
                         <label for="Nama">Nama</label>
                         <input type="text" name="Nama" class="form-control" id="Nama" value="{{ $mahasiswa->nama }}" aria-describedby="Nama">
                     </div>
+                    <div class="form-group">
+                        <label for="Kelas">Kelas</label>
+                        <select class="custom-select" id="Kelas" name="Kelas">
+                            @foreach($kelas as $kls)
+                            <option value="{{ $kls->id }}" {{ $mahasiswa->kelas_id == $kls->id ? 'selected' : '' }}>{{ $kls->nama_kelas }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Jurusan">Jurusan</label>
+                        <input type="Jurusan" name="Jurusan" class="form-control" id="Jurusan" value="{{ $mahasiswa->jurusan }}" aria-describedby="Jurusan">
+                    </div>
+
+                    <div class="form-group mb-7">
+                        <label for="image">Foto</label>
+                        <input type="file" class="form-control" name="image" id="image" value="{{$mahasiswa->featured_image}}"></br>
+                        @if($mahasiswa->featured_image)
+                        <img width="150px" src="{{asset('storage/'.$mahasiswa->featured_image)}}"  >
+                        @else
+                        <img class="img-preview img-fluid">
+                        @endif
+                    </div>
+
                     <div class="form-group">
                         <label for="Jenis_Kelamin">Jenis Kelamin</label>
                         <select class="custom-select" id="Jenis_Kelamin" name="Jenis_Kelamin">
@@ -50,18 +74,8 @@
                         <label for="Alamat">Alamat</label>
                         <input type="textarea" name="Alamat" class="form-control" id="Alamat" value="{{ $mahasiswa->alamat }}" ariadescribedby="Alamat">
                     </div>
-                    <div class="form-group">
-                        <label for="Kelas">Kelas</label>
-                        <select class="custom-select" id="Kelas" name="Kelas">
-                            @foreach($kelas as $kls)
-                            <option value="{{ $kls->id }}" {{ $mahasiswa->kelas_id == $kls->id ? 'selected' : '' }}>{{ $kls->nama_kelas }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="Jurusan">Jurusan</label>
-                        <input type="Jurusan" name="Jurusan" class="form-control" id="Jurusan" value="{{ $mahasiswa->jurusan }}" aria-describedby="Jurusan">
-                    </div>
+                    
+                   
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
