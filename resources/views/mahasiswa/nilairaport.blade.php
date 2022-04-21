@@ -13,6 +13,10 @@
    </div>
 
     <table class="table table-bordered">
+        <div class="float-right">
+            <a href="{{ route('mahasiswa.print_cetak', $mhs->nim) }}" class="btn btn-primary">Cetak data</a>
+    
+        </div>
         <thead>
             <tr>
                 <th scope="col">Mata Kuliah</th>

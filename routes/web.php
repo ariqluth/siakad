@@ -30,6 +30,7 @@ Route::resource('mahasiswa', MahasiswaController::class);
 Route::delete('/{nim}', [MahasiswaController::class, 'delete'])->name('mahasiswa.delete');
 Route::get('/nialiraport/{id}', [MahasiswaController::class, 'khs'])->name('mahasiswa.nilairaport');
 
-
+// print cetak pdf
+Route::get('/nilairaport/{nim}/print_cetak', [MahasiswaController::class, 'print_cetak'])->name('mahasiswa.print_cetak');
 
 

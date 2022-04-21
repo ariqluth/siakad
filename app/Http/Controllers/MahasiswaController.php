@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa_Matakuliah;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -194,6 +195,13 @@ return redirect()->route('mahasiswa.index')
         $mhs = Mahasiswa::with('kelas')->where('id_mahasiswa', $id)->first();
 
         return view('mahasiswa.nilairaport', compact('khs', 'mhs'));
+    }
+
+    public function print_cetak($nim){
+        $mahasiswa = Mahasiswa::with('kelas')->where("nim", $nim)->first();
+        $matkul = Mahasiswa_Matakuliah::with("matakuliah")->where("mahasiswa_id", ($mahasiswa -> id_mahasiswa))->get();
+        $pdf = PDF::loadview('mahasiswa.print_cetak', ['mahasiswa' => $mahasiswa,'matakuliah'=>$matkul]);
+        return $pdf->stream();
     }
 
 };
