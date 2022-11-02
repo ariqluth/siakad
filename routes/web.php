@@ -19,9 +19,9 @@ use App\Http\Controllers\MahasiswaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //buat mahasiswa route 
 Route::resource('mahasiswa', MahasiswaController::class);
